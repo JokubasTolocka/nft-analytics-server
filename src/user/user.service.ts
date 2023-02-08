@@ -16,6 +16,10 @@ export class UsersService {
     return user.save();
   }
 
+  findAll() {
+    return this.userModel.find().exec();
+  }
+
   async findOne(id: string) {
     const user = await this.userModel.findOne({ _id: id }).exec();
     if (!user) {
