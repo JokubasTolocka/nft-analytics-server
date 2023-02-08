@@ -1,0 +1,31 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type User {
+  _id: String!
+
+  """User walletAddress"""
+  walletAddress: String!
+
+  """User email """
+  email: String!
+}
+
+type Query {
+  users: [User!]!
+  user(_id: String!): User!
+}
+
+type Mutation {
+  createUser(createUserInput: CreateUserInput!): User!
+  removeUser(_id: String!): User!
+}
+
+input CreateUserInput {
+  """walletAddress of the user"""
+  walletAddress: String!
+
+  """email of the user"""
+  email: String!
+}
