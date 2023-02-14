@@ -3,29 +3,30 @@
 # ------------------------------------------------------
 
 type User {
-  _id: String!
+  id: String!
 
-  """User walletAddress"""
+  """User walletAddress """
   walletAddress: String!
 
   """User email """
   email: String!
+
+  """User favorited collections"""
+  favoritedCollections: [String!]!
 }
 
 type Query {
-  users: [User!]!
-  user(_id: String!): User!
+  user(walletAddress: String!): User!
 }
 
 type Mutation {
-  createUser(createUserInput: CreateUserInput!): User!
-  removeUser(_id: String!): User!
+  register(registerInput: RegisterUserInput!): User!
 }
 
-input CreateUserInput {
+input RegisterUserInput {
   """walletAddress of the user"""
   walletAddress: String!
 
   """email of the user"""
-  email: String!
+  email: String
 }

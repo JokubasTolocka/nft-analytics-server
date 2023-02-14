@@ -6,13 +6,16 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 @ObjectType()
 export class User {
   @Field(() => String)
-  _id: MongooseSchema.Types.ObjectId;
-  @Prop()
-  @Field(() => String, { description: 'User walletAddress' })
+  id: MongooseSchema.Types.ObjectId;
+  @Prop({ required: true })
+  @Field(() => String, { description: 'User walletAddress ' })
   walletAddress: string;
-  @Prop()
+  @Prop({ required: false })
   @Field(() => String, { description: 'User email ' })
   email: string;
+  @Prop()
+  @Field(() => [String], { description: 'User favorited collections' })
+  favoritedCollections: string[];
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

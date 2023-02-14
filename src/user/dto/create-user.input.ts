@@ -1,11 +1,10 @@
 import { InputType, Field } from '@nestjs/graphql';
-import { IsOptional } from 'class-validator';
 
 @InputType()
-export class CreateUserInput {
+export class RegisterUserInput {
   @Field(() => String, { description: 'walletAddress of the user' })
   walletAddress: string;
-  @Field(() => String, { description: 'email of the user' })
-  @IsOptional()
+
+  @Field(() => String, { description: 'email of the user', nullable: true })
   email?: string;
 }
