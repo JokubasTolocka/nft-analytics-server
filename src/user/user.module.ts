@@ -3,6 +3,7 @@ import { UsersService } from './user.service';
 import { UsersResolver } from './user.resolver';
 import { MongooseModule } from '@nestjs/mongoose';
 import { User, UserSchema } from './user.entity';
+import { JwtModule } from '@nestjs/jwt';
 
 @Module({
   imports: [
@@ -12,6 +13,10 @@ import { User, UserSchema } from './user.entity';
         schema: UserSchema,
       },
     ]),
+    JwtModule.register({
+      secret: 'secret',
+      signOptions: { expiresIn: '120s' },
+    }),
   ],
   providers: [UsersResolver, UsersService],
 })

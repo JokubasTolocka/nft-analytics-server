@@ -8,25 +8,29 @@ type User {
   """User walletAddress """
   walletAddress: String!
 
+  """User wallet nonce """
+  nonce: String!
+
   """User email """
-  email: String!
+  email: String
 
   """User favorited collections"""
   favoritedCollections: [String!]!
 }
 
 type Query {
-  user(walletAddress: String!): User!
+  myUser(walletAddress: String!): User!
 }
 
 type Mutation {
-  register(registerInput: RegisterUserInput!): User!
+  checkIfUserExists(walletAddress: String!): User!
+  authenticate(authenticateInput: AuthenticateInput!): String!
 }
 
-input RegisterUserInput {
+input AuthenticateInput {
   """walletAddress of the user"""
   walletAddress: String!
 
-  """email of the user"""
-  email: String
+  """signature of the wallet of the user"""
+  signature: String!
 }
