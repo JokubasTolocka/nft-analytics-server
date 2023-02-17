@@ -12,6 +12,7 @@ import { User } from './user.entity';
 import { AuthenticateInput } from './dto/authenticate.input';
 import { recoverPersonalSignature } from 'eth-sig-util';
 import { generateNonce } from './utils/generateNonce';
+import { DecodedJWTToken } from './utils/types';
 
 @Injectable()
 export class UsersService {
@@ -52,12 +53,12 @@ export class UsersService {
 
     // generate JWT token
 
-    const token = this.jwtService.sign({
-      payload: {
-        id: user.id,
-        walletAddress,
-      },
-    });
+    const payload = {
+      id: user.id,
+      walletAddress,
+    };
+
+    const token = this.jwtService.sign(payload);
 
     return token;
   }
@@ -78,9 +79,15 @@ export class UsersService {
     }
   }
 
-  async getMyUser(walletAddress: string) {
+  async getMyUser(authToken: string) {
     try {
-      const myUser = await this.userModel.findOne({ walletAddress });
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      const decodedToken: DecodedJWTToken = this.jwtService.decode(authToken);
+
+      const myUser = await this.userModel.findOne({
+        walletAddress: decodedToken.walletAddress,
+      });
       return myUser;
     } catch {
       throw new UnauthorizedException(

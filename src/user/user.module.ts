@@ -4,6 +4,8 @@ import { UsersResolver } from './user.resolver';
 import { MongooseModule } from '@nestjs/mongoose';
 import { User, UserSchema } from './user.entity';
 import { JwtModule } from '@nestjs/jwt';
+import { GqlAuthGuard } from './guards/auth.guard';
+import { AuthService } from './guards/auth.service';
 
 @Module({
   imports: [
@@ -15,9 +17,9 @@ import { JwtModule } from '@nestjs/jwt';
     ]),
     JwtModule.register({
       secret: 'secret',
-      signOptions: { expiresIn: '120s' },
+      signOptions: { expiresIn: '2d' },
     }),
   ],
-  providers: [UsersResolver, UsersService],
+  providers: [UsersResolver, UsersService, GqlAuthGuard, AuthService],
 })
 export class UsersModule {}

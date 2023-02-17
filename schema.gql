@@ -19,7 +19,7 @@ type User {
 }
 
 type Query {
-  myUser(walletAddress: String!): User!
+  myUser: User!
 }
 
 type Mutation {
